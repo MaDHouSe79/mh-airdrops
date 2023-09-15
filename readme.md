@@ -1,0 +1,54 @@
+<p align="center">
+    <img width="140" src="https://icons.iconarchive.com/icons/iconarchive/red-orb-alphabet/128/Letter-M-icon.png" />  
+    <h1 align="center">Hi 👋, I'm MaDHouSe</h1>
+    <h3 align="center">A passionate allround developer </h3>    
+</p>
+
+<p align="center">
+  <a href="https://github.com/MaDHouSe79/mh-airdrops/issues">
+    <img src="https://img.shields.io/github/issues/MaDHouSe79/mh-airdrops"/> 
+  </a>
+  <a href="https://github.com/MaDHouSe79/mh-airdrops/watchers">
+    <img src="https://img.shields.io/github/watchers/MaDHouSe79/mh-airdrops"/> 
+  </a> 
+  <a href="https://github.com/MaDHouSe79/mh-airdrops/network/members">
+    <img src="https://img.shields.io/github/forks/MaDHouSe79/mh-airdrops"/> 
+  </a>  
+  <a href="https://github.com/MaDHouSe79/mh-airdrops/stargazers">
+    <img src="https://img.shields.io/github/stars/MaDHouSe79/mh-airdrops?color=white"/> 
+  </a>
+  <a href="https://github.com/MaDHouSe79/mh-airdrops/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/MaDHouSe79/mh-airdrops?color=black"/> 
+  </a>      
+</p>
+
+<p align="center">
+  <img alig src="https://github-profile-trophy.vercel.app/?username=MaDHouSe79&margin-w=15&column=6" />
+</p>
+
+# MH air drops (event)
+- it drops radnom airdrops on your map.
+- The first player that get the airdrop win, and gets all the loot thats inside.
+- all blips and objects will be despawn after a player loot the airdrop.
+
+# Command (god only)
+- /airdrop to drop a airdrop
+
+# QBShared Item
+```lua
+['airdrop'] = {['name'] = 'airdrop', ['label'] = 'Airdrop', ['weight'] = 0, ['type'] = 'item', ['image'] = 'airdrop.png', ['unique'] = true, ['useable'] = true, ['shouldClose'] = true, ['combinable'] = nil, ['description'] = 'This is a airdrop' },
+
+['airdrop2'] = {['name'] = 'airdrop2', ['label'] = 'Airdrop 2', ['weight'] = 0, ['type'] = 'item', ['image'] = 'airdrop2.png', ['unique'] = true, ['useable'] = true, ['shouldClose'] = true, ['combinable'] = nil, ['description'] = 'This is a airdrop2' },
+```
+
+# How to install.
+- Create a folder inside the folder resources named [mh].
+- Copy the directory mh-airdrops to resources/[mh]/
+- Add in server.cfg ensure [mh] after ensure [qb]
+- Restart your server.
+
+## 🐞 Any bugs, let my know.
+
+## 🙈 Youtube & Discord
+- [Youtube](https://www.youtube.com/@MaDHouSe79)
+- [Discord](https://discord.gg/cEMSeE9dgS)
