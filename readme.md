@@ -27,24 +27,17 @@
 </p>
 
 # MH air drops (event)
-- it drops radnom airdrops on your map.
-- The first player that get the airdrop win, and gets all the loot thats inside.
+- it drops random airdrops on your map.
+- The first player that get the airdrop wins, and gets all the loot thats inside.
 - all blips and objects will be despawn after a player loot the airdrop.
 
 # Command (god only)
 - /airdrop to drop a airdrop
 
-# QBShared Item
-```lua
-['airdrop'] = {['name'] = 'airdrop', ['label'] = 'Airdrop', ['weight'] = 0, ['type'] = 'item', ['image'] = 'airdrop.png', ['unique'] = true, ['useable'] = true, ['shouldClose'] = true, ['combinable'] = nil, ['description'] = 'This is a airdrop' },
-
-['airdrop2'] = {['name'] = 'airdrop2', ['label'] = 'Airdrop 2', ['weight'] = 0, ['type'] = 'item', ['image'] = 'airdrop2.png', ['unique'] = true, ['useable'] = true, ['shouldClose'] = true, ['combinable'] = nil, ['description'] = 'This is a airdrop2' },
-```
-
 # How to install.
-- Create a folder inside the folder resources named [mh].
-- Copy the directory mh-airdrops to resources/[mh]/
-- Add in server.cfg ensure [mh] after ensure [qb]
+- Create a folder inside the folder resources named `[mh]`.
+- Copy the directory `mh-airdrops` to `resources/[mh]/`
+- Add in `server.cfg` `ensure [mh]` after `ensure [standalone]`
 - Restart your server.
 
 ## 🐞 Any bugs, let my know.
