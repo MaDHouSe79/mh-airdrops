@@ -112,17 +112,11 @@ local function spawnAirdrop(coords)
                     action = function(entity)
                         if IsPedAPlayer(entity) then return false end
                         if Config.NotAllowedJobs[PlayerData.job.name] and PlayerData.job.onduty then return false end
-                        if isBlacklisted then return false end
                         LootCrate(entity)
                     end,
                     canInteract = function(entity, distance, data)
                         if IsPedAPlayer(entity) then return false end
                         if Config.NotAllowedJobs[PlayerData.job.name] and PlayerData.job.onduty then return false end
-                        if isBlacklisted then 
-                            TriggerEvent('mh-blacklisted:client:letsRagdoll')
-                            isPlayerBlacklisted()
-                            return false 
-                        end
                         return true
                     end
                 }
@@ -204,13 +198,7 @@ Citizen.CreateThread(function()
             if #(dropLocation - pos) < 5 then
                 if Config.NotAllowedJobs[PlayerData.job.name] and PlayerData.job.onduty then
                 else
-                    if #(dropLocation - pos) < 2 then
-                        if not isBlacklisted then 
-                            text = Lang:t('info.drawtext')
-                        else
-                            text = Lang:t('info.drawNoAccess')
-                        end
-                    end
+                    if #(dropLocation - pos) < 2 then text = Lang:t('info.drawtext') end
                     sleep = 1
                     DrawText3D(dropLocation.x, dropLocation.y, dropLocation.z + 1, text)
                 end
@@ -221,40 +209,40 @@ Citizen.CreateThread(function()
 end)
 
 Citizen.CreateThread(function()
-	while true do
-        Citizen.Wait(1)
-        if LocalPlayer.state.isLoggedIn then
-            if Config.NotAllowedJobs[PlayerData.job.name] and PlayerData.job.onduty then
-            else
-                if dropLocation ~= nil and crate ~= nil then
-                    local playerPed = PlayerPedId()
-                    local playerCoords = GetEntityCoords(playerPed)
-                    local distance = GetDistanceBetweenCoords(playerCoords, dropLocation.x, dropLocation.y, dropLocation.z, true)
-                    if (distance < 200.0) then
-                        if not (enable) then
-                            RequestNamedPtfxAsset('core')
-                            while not HasNamedPtfxAssetLoaded('core') do Citizen.Wait(1) end
-                            UseParticleFxAssetNextCall('core')
-                            local scale = 0.5
-                            local cratePosition = GetEntityCoords(crate)
-                            particle = StartParticleFxLoopedAtCoord('exp_grd_flare', dropLocation.x, dropLocation.y, dropLocation.z - 1.5, 0.0, 0.0, 0.0, scale, false, false, false, 0)
-                            enable = true
-                        end
-                    else
-                        if (enable) then
-                            StopParticleFxLooped(particle, false)
-                            particle = nil
-                            enable = false
-                        end
+    while true do
+    Citizen.Wait(1)
+    if LocalPlayer.state.isLoggedIn then
+        if Config.NotAllowedJobs[PlayerData.job.name] and PlayerData.job.onduty then
+        else
+            if dropLocation ~= nil and crate ~= nil then
+                local playerPed = PlayerPedId()
+                local playerCoords = GetEntityCoords(playerPed)
+                local distance = GetDistanceBetweenCoords(playerCoords, dropLocation.x, dropLocation.y, dropLocation.z, true)
+                if (distance < 200.0) then
+                    if not (enable) then
+                        RequestNamedPtfxAsset('core')
+                        while not HasNamedPtfxAssetLoaded('core') do Citizen.Wait(1) end
+                        UseParticleFxAssetNextCall('core')
+                        local scale = 0.5
+                        local cratePosition = GetEntityCoords(crate)
+                        particle = StartParticleFxLoopedAtCoord('exp_grd_flare', dropLocation.x, dropLocation.y, dropLocation.z - 1.5, 0.0, 0.0, 0.0, scale, false, false, false, 0)
+                        enable = true
+                    end
+                else
+                    if (enable) then
+                        StopParticleFxLooped(particle, false)
+                        particle = nil
+                        enable = false
                     end
                 end
-                if dropLocation == nil then
-                    StopParticleFxLooped(particle, false)
-                    particle = nil
-                    enable = false
-                end
+            end
+            if dropLocation == nil then
+                StopParticleFxLooped(particle, false)
+                particle = nil
+                enable = false
             end
         end
-		Citizen.Wait(500)
-	end
+    end
+    Citizen.Wait(500)
+    end
 end)
