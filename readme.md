@@ -31,6 +31,10 @@
 - The first player that get the airdrop wins, and gets all the loot thats inside.
 - all blips and objects will be despawn after a player loot the airdrop.
 
+# Dependencies:
+- [qb-core](https://github.com/qbcore-framework/qb-core)
+- [qb-target](https://github.com/qbcore-framework/qb-target) 
+
 # Command (god only)
 - /airdrop to drop a airdrop
 
