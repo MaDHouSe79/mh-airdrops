@@ -44,8 +44,5 @@
 - Add in `server.cfg` `ensure [mh]` after `ensure [standalone]`
 - Restart your server.
 
-## 🐞 Any bugs, let my know.
-
-## 🙈 Youtube & Discord
-- [Youtube](https://www.youtube.com/@MaDHouSe79)
-- [Discord](https://discord.gg/cEMSeE9dgS)
+# 🙈 Youtube
+- [Youtube](https://www.youtube.com/c/MaDHouSe79)
