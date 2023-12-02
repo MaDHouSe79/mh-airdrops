@@ -5,17 +5,6 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 local cooldown = math.random(Config.Cooldown.min, Config.Cooldown.max)
 
-local function GeneratePlate()
-    local plate = QBCore.Shared.RandomInt(1) .. QBCore.Shared.RandomStr(2) .. QBCore.Shared.RandomInt(3) .. QBCore.Shared.RandomStr(2)
-    MySQL.Async.fetchAll("SELECT plate FROM player_vehicles WHERE plate = ?", {plate}, function(result)
-        if result[1] then
-            return GeneratePlate()
-        else
-            return plate:upper()
-        end
-    end)
-end
-
 local function SpawnAirdrop()
     if #QBCore.Functions.GetPlayers() >= Config.MinPlayerOnline then
         local randomLocation = math.random(1, #Config.Locations)
@@ -51,11 +40,11 @@ QBCore.Commands.Add("airdrop", "Drop an airdrop", {}, true, function(source)
 end, 'admin')
 
 QBCore.Functions.CreateUseableItem(Config.Item1, function(source, item)
-	local src = source
+    local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     Player.Functions.RemoveItem(Config.Item1, 1, false)
     TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[Config.Item1], 'remove', 1)
-	local randomLocation = math.random(1, #Config.Locations)
+    local randomLocation = math.random(1, #Config.Locations)
     TriggerClientEvent('mh-airdrops:client:deleteObj', src)
     TriggerClientEvent('mh-airdrops:client:airdrop', src, randomLocation)
     TriggerClientEvent('mh-airdrops:client:notify', src, Lang:t('notify.airdrop_landed'), "success", 5000)
