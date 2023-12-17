@@ -26,6 +26,9 @@
   <img alig src="https://github-profile-trophy.vercel.app/?username=MaDHouSe79&margin-w=15&column=6" />
 </p>
 
+# 🙈 Youtube
+- [Subscribe](https://www.youtube.com/c/MaDHouSe79)
+- 
 # MH air drops (event)
 - it drops random airdrops on your map.
 - The first player that get the airdrop wins, and gets all the loot thats inside.
@@ -44,5 +47,7 @@
 - Add in `server.cfg` `ensure [mh]` after `ensure [standalone]`
 - Restart your server.
 
-# 🙈 Youtube
-- [Youtube](https://www.youtube.com/c/MaDHouSe79)
+
+# LICENSE
+[GPL LICENSE](./LICENSE)<br />
+&copy; [MaDHouSe79](https://www.youtube.com/@MaDHouSe79)
