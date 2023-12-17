@@ -39,7 +39,7 @@
 - [qb-target](https://github.com/qbcore-framework/qb-target) 
 
 # Command (god only)
-- /airdrop to drop a airdrop
+- /airdrop (to start and drop an airdrop)
 
 # How to install.
 - Create a folder inside the folder resources named `[mh]`.
