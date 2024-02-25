@@ -48,8 +48,7 @@ local function Notify(message, type, time)
 end
 
 local function AddObjBlip(coords)
-    if Config.NotAllowedJobs[PlayerData.job.name] and PlayerData.job.onduty then
-    else
+    if not Config.NotAllowedJobs[PlayerData.job.name] then
         local transG = 250
         local blip = AddBlipForCoord(coords.x, coords.y, coords.z)
         local blip2 = AddBlipForCoord(coords.x, coords.y, coords.z)
