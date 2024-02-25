@@ -76,7 +76,7 @@ local function AddObjBlip(coords)
 end
 
 local function LootCrate(entity)
-    TriggerServerEvent("mh-airdrops:server:getloot", ObjToNet(entity))
+    TriggerServerEvent("mh-airdrops:server:getloot", NetworkGetNetworkIdFromEntity(entity))
     if DoesEntityExist(entity) then
         DeleteObject(entity)
         deletedrops()
@@ -90,7 +90,7 @@ local function spawnAirdrop(coords)
         local model = GetHashKey(Config.Object)
         RequestModel(model)
         while not HasModelLoaded(model) do Citizen.Wait(10) end
-        crate = CreateObject(model, coords.x, coords.y, coords.z - 1, false, true, false)
+        crate = CreateObject(model, coords.x, coords.y, coords.z - 1, true, true, false)
         AddObjBlip(coords)
         dropLocation = vector3(coords.x, coords.y, coords.z)
         SetEntityLodDist(crate, 1000)
