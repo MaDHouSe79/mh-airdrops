@@ -9,6 +9,8 @@ Config.MinPlayerOnline = 1 -- the total players online must be above this value 
 Config.Notify = "qb-core" -- Default:(qb-core), you can also use (roda-notify/okokNotify)
 Config.NotifyTitle = "Airdrops"
 
+Config.Show3DText = true
+
 -- you can only use this if you have (mh-dailyactivities)
 Config.UseDailyActivities = true -- only true if you have mh-dailyactivities..
 Config.DailyTaskID = 11 -- the `Config.Tasks` from mh-dailyactivities, its the id of the task..
