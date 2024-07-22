@@ -9,7 +9,7 @@ Config.MinPlayerOnline = 1 -- the total players online must be above this value 
 Config.Notify = "qb-core" -- Default:(qb-core), you can also use (roda-notify/okokNotify)
 Config.NotifyTitle = "Airdrops"
 
-Config.Show3DText = true
+Config.Show3DText = true -- show text above the crate
 
 -- you can only use this if you have (mh-dailyactivities)
 Config.UseDailyActivities = true -- only true if you have mh-dailyactivities..
