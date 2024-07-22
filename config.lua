@@ -35,6 +35,8 @@ Config.UseJackpotItem = false
 Config.JackpotItem = "coke_brick"
 Config.JackpotAmount = math.random(1, 2)
 
+-- if you have one of this jobs you can't use it.
+-- if you are admin make sure you don't have one of this jobs or you cant use the command /airdrop
 Config.NotAllowedJobs = {
     ["police"] = true,
     ["ambulance"] = true,
