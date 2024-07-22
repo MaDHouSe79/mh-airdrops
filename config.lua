@@ -80,7 +80,7 @@ Config.Locations = {
     vector3(-102.4416, -967.3010, 296.2135),
 }
 
--- Placeholder (Don't change this)
+-- Crate Items
 Config.Items = {  
     ['basic'] = {
         [1] = {name = "iphone"},
