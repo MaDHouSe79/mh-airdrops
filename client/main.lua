@@ -180,7 +180,7 @@ end)
 Citizen.CreateThread(function()
     while true do
         local sleep = 1000
-        if dropLocation ~= nil then
+        if dropLocation ~= nil and Config.Show3DText then
             local pos = GetEntityCoords(PlayerPedId())
             if #(dropLocation - pos) < 5 then
                 if Config.NotAllowedJobs[PlayerData.job.name] and PlayerData.job.onduty then
