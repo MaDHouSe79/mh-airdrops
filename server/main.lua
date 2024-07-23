@@ -4,6 +4,17 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 local cooldown = math.random(Config.Cooldown.min, Config.Cooldown.max)
 
+local function NotifyPlayers(src)
+    for k, id in pairs(QBCore.Functions.GetPlayers()) do
+        if id ~= src then
+            local target = QBCore.Functions.GetPlayer(id)
+            if not Config.NotAllowedJobs[target.PlayerData.job.name] then
+                TriggerClientEvent('mh-airdrops:client:notify', id, Lang:t('notify.airprop_caught'), "success", 5000)
+            end
+        end
+    end
+end
+
 local function SpawnAirdrop()
     if #QBCore.Functions.GetPlayers() >= Config.MinPlayerOnline then
         local randomLocation = math.random(1, #Config.Locations)
@@ -71,11 +82,7 @@ RegisterNetEvent('mh-airdrops:server:getloot', function(ObjNetId)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     TriggerClientEvent('mh-airdrops:client:deleteObj', -1, ObjNetId)
-    TriggerClientEvent('mh-airdrops:client:notify', -1, Lang:t('notify.airprop_caught'), "success", 5000)
-
-    if Config.UseDailyActivities then
-        TriggerClientEvent('mh-dailyactivities:client:updateTask', src, Config.DailyTaskID)
-    end
+    NotifyPlayers(src)    
 
     local whatBooty = Config.whatBooty
     if Config.UseItemsDrop then
