@@ -11,10 +11,6 @@ Config.NotifyTitle = "Airdrops"
 
 Config.Show3DText = true -- show text above the crate
 
--- you can only use this if you have (mh-dailyactivities)
-Config.UseDailyActivities = true -- only true if you have mh-dailyactivities..
-Config.DailyTaskID = 11 -- the `Config.Tasks` from mh-dailyactivities, its the id of the task..
-
 Config.Timer = 60
 Config.Cooldown = { min = 30, max = 60 }
 
