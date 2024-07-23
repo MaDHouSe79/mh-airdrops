@@ -111,7 +111,8 @@ RegisterNetEvent('mh-airdrops:server:getloot', function(ObjNetId)
         TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[item.name], 'add', random)
 
     elseif whatBooty == 2 then
-        local item = Config.Items.rare[math.random(1, #Config.Items.rare)]
+        local random = math.random(1, #Config.Items.rare)
+        local item = Config.Items.rare[random]
         for _ = 1, math.random(5, 10), 1 do
             Player.Functions.AddItem(item.name, random, false)
             TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[item.name], 'add', random)
