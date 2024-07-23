@@ -14,6 +14,10 @@ Config.Show3DText = true -- show text above the crate
 Config.Timer = 60
 Config.Cooldown = { min = 30, max = 60 }
 
+-- after drop unlock after 5 min
+Config.UnlockTime = 300 -- 5 min
+
+
 Config.Item1 = "airdrop"
 Config.Item2 = "airdrop2"
 
