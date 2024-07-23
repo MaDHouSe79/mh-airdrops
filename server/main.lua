@@ -15,6 +15,12 @@ local function NotifyPlayers(src)
     end
 end
 
+local function UnlockCrate()
+    SetTimeout(Config.UnlockTime * 1000, function()
+        TriggerClientEvent('mh-airdrops:client:unlockcrate', -1)
+    end)
+end
+
 local function SpawnAirdrop()
     if #QBCore.Functions.GetPlayers() >= Config.MinPlayerOnline then
         local randomLocation = math.random(1, #Config.Locations)
@@ -24,6 +30,7 @@ local function SpawnAirdrop()
                 TriggerClientEvent('mh-airdrops:client:deleteObj', id)
                 TriggerClientEvent('mh-airdrops:client:airdrop', id, randomLocation)
                 TriggerClientEvent('mh-airdrops:client:notify', id, Lang:t('notify.airdrop_landed'), "success", 10000)
+                UnlockCrate()
             end
         end
     else
