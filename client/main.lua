@@ -11,6 +11,7 @@ local crate = nil
 local particle = nil
 local enable = false
 local isLoggedIn = false
+local locked = true
 
 local function deletedrops()
     for k, drop in pairs(airdrops) do
@@ -102,11 +103,13 @@ local function spawnAirdrop(coords)
                 targeticon = 'fas fa-book-reader',
                 action = function(entity)
                     if IsPedAPlayer(entity) then return false end
+                    if locked then return false end
                     if Config.NotAllowedJobs[PlayerData.job.name] and PlayerData.job.onduty then return false end
                     LootCrate(entity)
                 end,
                 canInteract = function(entity, distance, data)
                     if IsPedAPlayer(entity) then return false end
+                    if locked then return false end
                     if Config.NotAllowedJobs[PlayerData.job.name] and PlayerData.job.onduty then return false end
                     return true
                 end
@@ -130,6 +133,10 @@ local function DrawText3D(x, y, z, text)
     AddTextComponentString(text)
     DrawText(_x, _y)
 end
+
+RegisterNetEvent('mh-airdrops:client:unlockcrate', function()
+    locked = false
+end)
 
 RegisterNetEvent('mh-airdrops:client:AddTargetBlip', function(targetID)
     targetBlip = AddBlipForEntity(targetID)
