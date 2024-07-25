@@ -108,32 +108,32 @@ RegisterNetEvent('mh-airdrops:server:getloot', function(ObjNetId)
         local item = Config.Items.basic[math.random(1, #Config.Items.basic)]
         local random = math.random(10, 15)
         Player.Functions.AddItem(item.name, random, false)
-        TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[item.name], 'add', random)
+        TriggerClientEvent('qb-inventory:client:ItemBox', src, QBCore.Shared.Items[item.name], 'add', random)
 
     elseif whatBooty == 2 then
         local random = math.random(1, #Config.Items.rare)
         local item = Config.Items.rare[random]
         for _ = 1, math.random(5, 10), 1 do
             Player.Functions.AddItem(item.name, random, false)
-            TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[item.name], 'add', random)
+            TriggerClientEvent('qb-inventory:client:ItemBox', src, QBCore.Shared.Items[item.name], 'add', random)
         end
 
     elseif whatBooty == 3 then
         local ammo = Config.Items['ammo'][math.random(1, #Config.Items['ammo'])]
         Player.Functions.AddItem(ammo.name, ammo.amount, false)
-        TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[ammo.amount], 'add', ammo.amount)
+        TriggerClientEvent('qb-inventory:client:ItemBox', src, QBCore.Shared.Items[ammo.amount], 'add', ammo.amount)
 
     elseif whatBooty == 4 then
         local weapon = Config.Items['weapons'][math.random(1, #Config.Items['weapons'])]
         Player.Functions.AddItem(weapon.model, 1, false, nil)
-        TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[weapon.model], 'add', 1)
+        TriggerClientEvent('qb-inventory:client:ItemBox', src, QBCore.Shared.Items[weapon.model], 'add', 1)
     end
 
     if Config.UseJackpotItem then
         local chance = math.random(1, 100)
         if chance < 7 then
             Player.Functions.AddItem(Config.JackpotItem, Config.JackpotAmount, false)
-            TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[Config.JackpotItem], 'add', Config.JackpotAmount)
+            TriggerClientEvent('qb-inventory:client:ItemBox', src, QBCore.Shared.Items[Config.JackpotItem], 'add', Config.JackpotAmount)
         end
     end
 end)
