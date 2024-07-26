@@ -48,6 +48,11 @@
 - Restart your server.
 
 
+# Item
+```lua
+airdrop = { name = 'airdrop', label = 'Airdrop', weight = 3000, type = 'item', image = 'airdrop.png', unique = true, useable = true, shouldClose = true, description = 'A airdrop' },
+```
+
 # LICENSE
 [GPL LICENSE](./LICENSE)<br />
 &copy; [MaDHouSe79](https://www.youtube.com/@MaDHouSe79)
