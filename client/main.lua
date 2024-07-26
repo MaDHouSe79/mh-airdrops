@@ -2,16 +2,10 @@
 --[[             MH Airdrops Script by MaDHouSe            ]] --
 --[[ ===================================================== ]] --
 local QBCore = exports['qb-core']:GetCoreObject()
-local PlayerData = {}
-local airdrops = {}
-local airdropBlips = {}
-local dropLocation = nil
-local targetBlip = nil
-local crate = nil
-local particle = nil
-local enable = false
-local isLoggedIn = false
-local locked = true
+local PlayerData, airdrops, airdropBlips = {}, {}, {}
+local dropLocation, targetBlip, crate, particle = nil, nil, nil, nil
+local isLoggedIn, enable, locked, unlocked = false, false, true, false
+local unlockTimer = Config.UnlockTime
 
 local function deletedrops()
     for k, drop in pairs(airdrops) do
@@ -76,8 +70,8 @@ local function AddObjBlip(coords)
 end
 
 local function LootCrate(entity)
-    TriggerServerEvent("mh-airdrops:server:getloot", NetworkGetNetworkIdFromEntity(entity))
     if DoesEntityExist(entity) then
+        TriggerServerEvent("mh-airdrops:server:getloot", NetworkGetNetworkIdFromEntity(entity))
         DeleteObject(entity)
         deletedrops()
     end
@@ -103,13 +97,13 @@ local function spawnAirdrop(coords)
                 action = function(entity)
                     if IsPedAPlayer(entity) then return false end
                     if locked then return false end
-                    if Config.NotAllowedJobs[PlayerData.job.name] and PlayerData.job.onduty then return false end
+                    if Config.NotAllowedJobs[PlayerData.job.name] then return false end
                     LootCrate(entity)
                 end,
                 canInteract = function(entity, distance, data)
                     if IsPedAPlayer(entity) then return false end
                     if locked then return false end
-                    if Config.NotAllowedJobs[PlayerData.job.name] and PlayerData.job.onduty then return false end
+                    if Config.NotAllowedJobs[PlayerData.job.name] then return false end
                     return true
                 end
             }},
@@ -122,7 +116,7 @@ end
 local function DrawText3D(x, y, z, text)
     local onScreen, _x, _y = World3dToScreen2d(x, y, z)
     local px, py, pz = table.unpack(GetGameplayCamCoords())
-    SetTextScale(0.28, 0.28)
+    SetTextScale(0.30, 0.30)
     SetTextFont(4)
     SetTextProportional(1)
     SetTextColour(255, 255, 255, 245)
@@ -157,11 +151,15 @@ end)
 
 RegisterNetEvent('mh-airdrops:client:airdrop', function(random)
     spawnAirdrop(Config.Locations[random])
+    locked = true
+    unlocked = false
 end)
 
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
     PlayerData = QBCore.Functions.GetPlayerData()
     isLoggedIn = true
+    locked = true
+    unlocked = false
 end)
 
 RegisterNetEvent('QBCore:Player:SetPlayerData', function(data)
@@ -176,6 +174,22 @@ AddEventHandler('onResourceStart', function(resourceName)
     if resourceName == GetCurrentResourceName() then
         PlayerData = QBCore.Functions.GetPlayerData()
         isLoggedIn = true
+        locked = true
+        unlocked = false
+        dropLocation = nil
+    end
+end)
+
+AddEventHandler('onResourceStop', function(resourceName)
+    if resourceName == GetCurrentResourceName() then
+        PlayerData = {}
+        airdrops = {}
+        isLoggedIn = false
+        dropLocation = nil
+        locked = true
+        unlocked = false
+        deletedrops()
+        deleteBlips()
     end
 end)
 
@@ -187,15 +201,19 @@ Citizen.CreateThread(function()
     while true do
         local sleep = 1000
         if isLoggedIn then
-            if dropLocation ~= nil and Config.Show3DText then
+            if dropLocation ~= nil and Config.Show3DText and not Config.NotAllowedJobs[PlayerData.job.name] then
                 local pos = GetEntityCoords(PlayerPedId())
-                if #(dropLocation - pos) < 5 then
-                    if not Config.NotAllowedJobs[PlayerData.job.name] then
-                        if #(dropLocation - pos) < 2 then text = Lang:t('info.drawtext') end
-                        sleep = 1
-                        DrawText3D(dropLocation.x, dropLocation.y, dropLocation.z + 1, text)
+                if #(dropLocation - pos) < 2 then
+                    local text = Lang:t('info.locked')
+                    if not locked then text = Lang:t('info.unlocked') end
+                    if not unlocked then
+                        unlocked = true
+                        TriggerServerEvent('mh-airdrops:server:unlock')
                     end
+                    sleep = 1
+                    DrawText3D(dropLocation.x, dropLocation.y, dropLocation.z + 1.0, text)
                 end
+    
             end
         end
         Citizen.Wait(sleep)
@@ -218,7 +236,7 @@ Citizen.CreateThread(function()
                             UseParticleFxAssetNextCall('core')
                             local scale = 0.5
                             local cratePosition = GetEntityCoords(crate)
-                            particle = StartParticleFxLoopedAtCoord('exp_grd_flare', dropLocation.x, dropLocation.y, dropLocation.z - 1.5, 0.0, 0.0, 0.0, scale, false, false, false, 0)
+                            particle = StartParticleFxLoopedAtCoord('exp_grd_flare', dropLocation.x, dropLocation.y, dropLocation.z - 1.0, 0.0, 0.0, 0.0, scale, false, false, false, 0)
                             enable = true
                         end
                     else
@@ -237,5 +255,34 @@ Citizen.CreateThread(function()
             end
         end
         Citizen.Wait(500)
+    end
+end)
+
+CreateThread(function()
+    while true do
+        local sleep = 1000
+        if isLoggedIn then
+            if not Config.NotAllowedJobs[PlayerData.job.name] and locked and dropLocation ~= nil then
+                local pos = GetEntityCoords(PlayerPedId())
+                if #(dropLocation - pos) < 2 then 
+                    sleep = 5
+                    DrawText3D(dropLocation.x, dropLocation.y, dropLocation.z + 0.8, "unlocked in "..unlockTimer.." secs")
+                end
+            end
+        end
+        Wait(sleep)
+    end
+end)
+
+CreateThread(function()
+    while true do
+        if isLoggedIn then
+            if not Config.NotAllowedJobs[PlayerData.job.name] and locked then
+                if unlockTimer > 0 then unlockTimer = unlockTimer - 1 end
+                if unlockTimer <= 0 then unlockTimer = 0 end
+                if unlockTimer == 0 then locked = false end
+            end
+        end
+        Wait(1000)
     end
 end)
