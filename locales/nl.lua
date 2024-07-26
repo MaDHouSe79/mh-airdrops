@@ -6,6 +6,8 @@ local Translations = {
         text = "Airdrop",
         drawtext = "[LEFT ALT] + [R-MOUSE]",
         drawNoAccess = "~r~Access denied~w~",
+        locked = "~r~Locked~w~",
+        unlocked = "~g~Unlocked~w~",
     },
     notify = {
         airdrop_landed = "Airdrop is geland, ga er snel heen voordat iemand anders het heeft!",
