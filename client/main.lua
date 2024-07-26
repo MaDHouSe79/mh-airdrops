@@ -44,7 +44,7 @@ local function Notify(message, type, time)
     elseif Config.Notify == "roda-notify" then
         exports['Roda_Notifications']:showNotify(Config.NotifyTitle, message, type, time)
     else
-        print("mh-parking: Your type of notify choice is not supported")
+        print("mh-airdrops: Your type of notify choice is not supported")
     end
 end
 
