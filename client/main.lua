@@ -84,8 +84,7 @@ local function LootCrate(entity)
 end
 
 local function spawnAirdrop(coords)
-    if Config.NotAllowedJobs[PlayerData.job.name] and PlayerData.job.onduty then
-    else
+    if not Config.NotAllowedJobs[PlayerData.job.name] then
         deletedrops()
         local model = GetHashKey(Config.Object)
         RequestModel(model)
@@ -187,14 +186,15 @@ end)
 Citizen.CreateThread(function()
     while true do
         local sleep = 1000
-        if dropLocation ~= nil and Config.Show3DText then
-            local pos = GetEntityCoords(PlayerPedId())
-            if #(dropLocation - pos) < 5 then
-                if Config.NotAllowedJobs[PlayerData.job.name] and PlayerData.job.onduty then
-                else
-                    if #(dropLocation - pos) < 2 then text = Lang:t('info.drawtext') end
-                    sleep = 1
-                    DrawText3D(dropLocation.x, dropLocation.y, dropLocation.z + 1, text)
+        if isLoggedIn then
+            if dropLocation ~= nil and Config.Show3DText then
+                local pos = GetEntityCoords(PlayerPedId())
+                if #(dropLocation - pos) < 5 then
+                    if not Config.NotAllowedJobs[PlayerData.job.name] then
+                        if #(dropLocation - pos) < 2 then text = Lang:t('info.drawtext') end
+                        sleep = 1
+                        DrawText3D(dropLocation.x, dropLocation.y, dropLocation.z + 1, text)
+                    end
                 end
             end
         end
@@ -206,8 +206,7 @@ Citizen.CreateThread(function()
     while true do
         Citizen.Wait(1)
         if isLoggedIn then
-            if Config.NotAllowedJobs[PlayerData.job.name] and PlayerData.job.onduty then
-            else
+            if not Config.NotAllowedJobs[PlayerData.job.name] then
                 if dropLocation ~= nil and crate ~= nil then
                     local playerPed = PlayerPedId()
                     local playerCoords = GetEntityCoords(playerPed)
