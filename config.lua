@@ -14,26 +14,39 @@ Config.Show3DText = true -- show text above the crate
 Config.Timer = 60
 Config.Cooldown = { min = 30, max = 60 }
 
--- after drop unlock after 5 min
-Config.UnlockTime = 300 -- 5 min
+Config.UnlockTime = 300 -- 5 min before automaticly unlock the crate
 
-
-Config.Item1 = "airdrop"
-Config.Item2 = "airdrop2"
+-- airdrop item, if you use this a airdrop is called.
+Config.Item = "airdrop"
 
 Config.Object = 'prop_drop_armscrate_01'
 
+-- Only one can be true
 Config.UseItemsDrop = true
 Config.UseRareItemsDrop = false
 Config.UseAmmoDrop = false
 Config.UseWeaponDrop = false
 Config.UseAllDrops = false
 
-Config.whatBooty = 1 -- default 0 (1 is Items 2 is Weapons 3 is ammo, only if you set something above to false)
+-- default 0 (1 is Items, 2 is Rare, 3 is ammo, 4 is Weapons)
+Config.whatBooty = 1 -- only if you set something above to false
 
 Config.UseJackpotItem = false
 Config.JackpotItem = "coke_brick"
 Config.JackpotAmount = math.random(1, 2)
+
+-- Markedbills, if true Markedbills is used, if false Config.CashItem is used
+Config.UseMarkedbills = false 
+Config.Markedbills = {
+    min = 250, -- minimum you can get from a crate
+    max = 450, -- maximum you can get from a crate
+}
+-- Cash, if Config.UseMarkedbills is false this is used.
+Config.CashItem = 'black_money' -- cash or black_money
+Config.Cash = {
+    min = 250, -- minimum you can get from a crate
+    max = 450, -- maximum you can get from a crate
+}
 
 -- if you have one of this jobs you can't use it.
 -- if you are admin make sure you don't have one of this jobs or you cant use the command /airdrop
@@ -44,6 +57,7 @@ Config.NotAllowedJobs = {
 }
 
 -- Locations of where the Airdrops can spawn
+-- add more locations if you want..
 Config.Locations = {
     vector3(-447.6982, -2428.0305, 6.0008),
     vector3(-1268.0905, -1915.7034, 5.8616),
@@ -80,7 +94,8 @@ Config.Locations = {
     vector3(-102.4416, -967.3010, 296.2135),
 }
 
--- Crate Items
+-- Items
+Config.UseItems = true
 Config.Items = {  
     ['basic'] = {
         [1] = {name = "iphone"},
