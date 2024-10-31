@@ -6,7 +6,7 @@ fx_version 'cerulean'
 game 'gta5'
 
 description 'MH Airdrops'
-version '1.0'
+version '1.0.0'
 
 shared_scripts {
     '@qb-core/shared/locale.lua',
